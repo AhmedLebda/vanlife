@@ -12,7 +12,10 @@ const Navbar = () => {
             >
                 about
             </Link>
-            <Link className="capitalize font-medium hover:text-gray-700">
+            <Link
+                to="/vans"
+                className="capitalize font-medium hover:text-gray-700"
+            >
                 vans
             </Link>
         </nav>
