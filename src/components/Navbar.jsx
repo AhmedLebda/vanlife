@@ -1,4 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+
+const ActiveLinkStyles = "underline underline-offset-4 text-orange-600";
+const navLinkStyles = ({ isActive }) =>
+    isActive
+        ? `${ActiveLinkStyles} capitalize font-medium`
+        : "capitalize font-medium hover:text-gray-700";
 
 const Navbar = () => {
     return (
@@ -6,18 +12,16 @@ const Navbar = () => {
             <Link to="/" className="mr-auto uppercase font-bold text-4xl">
                 #vanlife
             </Link>
-            <Link
-                to="/about"
-                className="capitalize font-medium hover:text-gray-700"
-            >
+
+            <NavLink to="/host" className={navLinkStyles}>
+                host
+            </NavLink>
+            <NavLink to="/about" className={navLinkStyles}>
                 about
-            </Link>
-            <Link
-                to="/vans"
-                className="capitalize font-medium hover:text-gray-700"
-            >
+            </NavLink>
+            <NavLink to="/vans" className={navLinkStyles}>
                 vans
-            </Link>
+            </NavLink>
         </nav>
     );
 };

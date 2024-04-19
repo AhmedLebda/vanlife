@@ -1,4 +1,5 @@
 import aboutImg from "../images/about.png";
+import { Link } from "react-router-dom";
 
 const AboutContent = () => {
     return (
@@ -25,9 +26,12 @@ const AboutContent = () => {
                 <div className="p-8 bg-orange-300 font-semibold text-2xl rounded-lg">
                     <p>Your destination is waiting.</p>
                     <p>Your van is ready.</p>
-                    <button className="bg-stone-800 hover:bg-stone-900 p-4 text-white rounded-xl text-lg mt-6">
+                    <Link
+                        to="/vans"
+                        className="bg-stone-800 hover:bg-stone-900 p-4 text-white rounded-xl text-lg mt-6 inline-block"
+                    >
                         Explore our vans
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>
