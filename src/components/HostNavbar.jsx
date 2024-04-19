@@ -14,6 +14,9 @@ const HostNavbar = () => {
             <NavLink to="/host/income" className={navLinkStyles}>
                 income
             </NavLink>
+            <NavLink to="/host/vans" className={navLinkStyles}>
+                vans
+            </NavLink>
             <NavLink to="/host/reviews" className={navLinkStyles}>
                 reviews
             </NavLink>

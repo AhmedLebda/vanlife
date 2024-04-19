@@ -25,7 +25,15 @@ const Vans = () => {
         <section className="min-h-[75vh] p-8">
             <h1 className="text-4xl font-extrabold">Explore our van options</h1>
             <VansFilter filters={filters} onFilter={handleFiltering} />
-            <VansContainer data={vansToShow} />
+            {vansData.length > 0 ? (
+                <div className="flex flex-col gap-4 mt-8">
+                    <VansContainer data={vansToShow} />
+                </div>
+            ) : (
+                <div className="py-16 text-5xl text-orange-500 font-bold font-serif text-center">
+                    Loading...
+                </div>
+            )}
         </section>
     );
 };

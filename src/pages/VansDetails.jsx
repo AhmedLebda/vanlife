@@ -26,6 +26,15 @@ const VansDetails = () => {
             .then((data) => setVan(data.vans));
     }, [params.id]);
 
+    // Render loading component before van data arrives from api
+    if (Object.keys(van).length === 0) {
+        return (
+            <div className="py-16 text-5xl text-orange-500 font-bold font-serif text-center min-h-[75vh]">
+                Loading...
+            </div>
+        );
+    }
+
     return (
         <div className="p-8 flex flex-col gap-4">
             <Link
