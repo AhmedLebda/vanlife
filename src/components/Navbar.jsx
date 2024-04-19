@@ -8,18 +8,18 @@ const navLinkStyles = ({ isActive }) =>
 
 const Navbar = () => {
     return (
-        <nav className="flex gap-4 items-center p-8 shadow-md">
+        <nav className="flex gap-4 items-center p-8 shadow-md bg-white">
             <Link to="/" className="mr-auto uppercase font-bold text-4xl">
                 #vanlife
             </Link>
 
-            <NavLink to="/host" className={navLinkStyles}>
+            <NavLink to="host" className={navLinkStyles}>
                 host
             </NavLink>
-            <NavLink to="/about" className={navLinkStyles}>
+            <NavLink to="about" className={navLinkStyles}>
                 about
             </NavLink>
-            <NavLink to="/vans" className={navLinkStyles}>
+            <NavLink to="vans" className={navLinkStyles}>
                 vans
             </NavLink>
         </nav>

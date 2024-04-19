@@ -7,20 +7,20 @@ const navLinkStyles = ({ isActive }) =>
 
 const HostNavbar = () => {
     return (
-        <div className="flex gap-8 p-8 text-lg capitalize text-zinc-700">
-            <NavLink to="/host" end className={navLinkStyles}>
+        <nav className="flex gap-8 p-8 text-lg capitalize text-zinc-700">
+            <NavLink to="." end className={navLinkStyles}>
                 dashboard
             </NavLink>
-            <NavLink to="/host/income" className={navLinkStyles}>
+            <NavLink to="income" className={navLinkStyles}>
                 income
             </NavLink>
-            <NavLink to="/host/vans" className={navLinkStyles}>
+            <NavLink to="vans" className={navLinkStyles}>
                 vans
             </NavLink>
-            <NavLink to="/host/reviews" className={navLinkStyles}>
+            <NavLink to="reviews" className={navLinkStyles}>
                 reviews
             </NavLink>
-        </div>
+        </nav>
     );
 };
 

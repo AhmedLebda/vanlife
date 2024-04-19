@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import arrow from "../images/arrow.png";
+import BackToVansArrow from "../components/BackToVansArrow";
 
 const VansDetails = () => {
     const [van, setVan] = useState({});
@@ -37,15 +36,7 @@ const VansDetails = () => {
 
     return (
         <div className="p-8 flex flex-col gap-4">
-            <Link
-                to="/vans"
-                className="flex gap-2 items-center text-gray-600 hover:text-gray-800"
-            >
-                <img src={arrow} alt="left arrow" />
-                <span className="underline underline-offset-2">
-                    Back to all vans
-                </span>
-            </Link>
+            <BackToVansArrow />
             <img
                 src={imageUrl}
                 alt={`image of ${name} van`}
