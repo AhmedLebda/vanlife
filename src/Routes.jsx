@@ -21,6 +21,7 @@ import NotFound from "./pages/NotFound";
 import Error from "./components/Error";
 import api from "./api";
 import Login from "./pages/Login";
+import { requireAuth } from "./utils";
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -43,18 +44,22 @@ const routes = createBrowserRouter(
                     return api.getVans(params.id);
                 }}
             />
-            <Route path="host" element={<HostLayout />}>
+            <Route
+                path="host"
+                element={<HostLayout />}
+                loader={async () => await requireAuth()}
+            >
                 <Route index element={<Dashboard />} />
                 <Route path="income" element={<Income />} />
                 <Route
                     path="vans"
                     element={<HostVans />}
-                    loader={() => api.getHostVans()}
+                    loader={async () => api.getHostVans()}
                 />
                 <Route
                     path="vans/:id"
                     element={<HostVansDetailsLayout />}
-                    loader={({ params }) => api.getHostVans(params.id)}
+                    loader={async ({ params }) => api.getHostVans(params.id)}
                 >
                     <Route index end element={<HostVansDetails />} />
                     <Route path="pricing" element={<HostVansPricing />} />
