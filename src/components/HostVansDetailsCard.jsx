@@ -3,14 +3,6 @@ import VanCardType from "./VanCardType";
 const HostVansDetailsCard = ({ data }) => {
     const { name, price, imageUrl, type } = data;
 
-    if (Object.keys(data).length === 0) {
-        return (
-            <div className="py-16 text-5xl text-orange-500 font-bold font-serif text-center min-h-[75vh]">
-                Loading...
-            </div>
-        );
-    }
-
     return (
         <div className="flex gap-8 mt-8 items-center">
             <img

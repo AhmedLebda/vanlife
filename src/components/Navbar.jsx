@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import avatar from "../images/avatar-icon.png";
 
 const ActiveLinkStyles = "underline underline-offset-4 text-orange-600";
 const navLinkStyles = ({ isActive }) =>
@@ -22,6 +23,9 @@ const Navbar = () => {
             <NavLink to="vans" className={navLinkStyles}>
                 vans
             </NavLink>
+            <Link to="login">
+                <img src={avatar} alt="avatar icon" className="max-w-6" />
+            </Link>
         </nav>
     );
 };

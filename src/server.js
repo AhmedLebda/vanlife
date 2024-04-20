@@ -1,5 +1,5 @@
-import { createServer, Model, Response } from "miragejs";
-
+import { createServer, Model } from "miragejs";
+// Response
 createServer({
     models: {
         vans: Model,
@@ -78,9 +78,11 @@ createServer({
         this.namespace = "api";
         this.logging = false;
 
-        this.get("/vans", () => {
-            return new Response(400, {}, { error: "Error fetching data" });
-            // return schema.vans.all();
+        this.get("/vans", (schema) => {
+            // if (Math.floor(Math.random() * 10) > 5) {
+            //     return new Response(400, {}, { error: "Error fetching data" });
+            // }
+            return schema.vans.all();
         });
 
         this.get("/vans/:id", (schema, request) => {

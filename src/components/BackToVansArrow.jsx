@@ -6,7 +6,7 @@ const BackToVansArrow = () => {
     return (
         <>
             <Link
-                to={`..?${state.search}`}
+                to={`..?${state?.search}`}
                 relative="path"
                 className="flex gap-2 items-center text-gray-600 hover:text-gray-800"
             >

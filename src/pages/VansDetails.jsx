@@ -1,11 +1,8 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import BackToVansArrow from "../components/BackToVansArrow";
 
 const VansDetails = () => {
-    const [van, setVan] = useState({});
-
-    const params = useParams();
+    const van = useLoaderData();
 
     const { name, description, price, imageUrl, type } = van;
 
@@ -17,21 +14,6 @@ const VansDetails = () => {
         typeBg = "bg-emerald-700 hover:bg-emerald-800";
     } else {
         typeBg = "bg-zinc-900 hover:bg-zinc-950";
-    }
-
-    useEffect(() => {
-        fetch(`/api/vans/${params.id}`)
-            .then((response) => response.json())
-            .then((data) => setVan(data.vans));
-    }, [params.id]);
-
-    // Render loading component before van data arrives from api
-    if (Object.keys(van).length === 0) {
-        return (
-            <div className="py-16 text-5xl text-orange-500 font-bold font-serif text-center min-h-[75vh]">
-                Loading...
-            </div>
-        );
     }
 
     return (
