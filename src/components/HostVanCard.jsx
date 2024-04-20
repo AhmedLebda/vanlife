@@ -4,7 +4,7 @@ const HostVanCard = ({ data }) => {
     const { id, name, price, imageUrl } = data;
     return (
         <Link
-            to={`/host/vans/${id}`}
+            to={id}
             className="flex gap-6 p-4 items-center bg-white rounded-md"
         >
             <img

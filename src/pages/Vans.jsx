@@ -1,18 +1,31 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import VansFilter from "../components/VansFilter";
-import VansContainer from "../components/VansContainer";
+import VanCard from "../components/VanCard";
 
 const Vans = () => {
-    const [filter, setFilter] = useState(null);
     const [vansData, setVansData] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParams.toString());
+    const typeFilter = searchParams.get("type");
 
     const filters = ["simple", "luxury", "rugged"];
-    const vansToShow = !filter
+    const vansToShow = !typeFilter
         ? vansData
-        : vansData.filter((van) => van.type === filter);
+        : vansData.filter((van) => van.type === typeFilter);
 
     const handleFiltering = (value) => {
-        value === "clear" ? setFilter(null) : setFilter(value);
+        setSearchParams(
+            (prev) => {
+                if (value === "clear") {
+                    prev.delete("type");
+                } else {
+                    prev.set("type", value);
+                }
+                return prev;
+            },
+            { replace: true }
+        );
     };
 
     useEffect(() => {
@@ -24,10 +37,20 @@ const Vans = () => {
     return (
         <section className="min-h-[75vh] p-8">
             <h1 className="text-4xl font-extrabold">Explore our van options</h1>
-            <VansFilter filters={filters} onFilter={handleFiltering} />
+            <VansFilter
+                filters={filters}
+                onFilter={handleFiltering}
+                typeFilter={typeFilter}
+            />
             {vansData.length > 0 ? (
-                <div className="flex flex-col gap-4 mt-8">
-                    <VansContainer data={vansToShow} />
+                <div className="grid grid-cols-2 gap-8">
+                    {vansToShow.map((van) => (
+                        <VanCard
+                            key={van.id}
+                            data={van}
+                            params={searchParams}
+                        />
+                    ))}
                 </div>
             ) : (
                 <div className="py-16 text-5xl text-orange-500 font-bold font-serif text-center">

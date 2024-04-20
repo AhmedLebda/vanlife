@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import VanCardType from "./VanCardType";
 
-const VanCard = ({ data }) => {
+const VanCard = ({ data, params }) => {
     const { id, name, price, imageUrl, type } = data;
-
     return (
         <Link
-            to={`/vans/${id}`}
+            to={id}
+            state={{ search: params.toString() }}
             aria-label={`View details for ${name}, priced at $${price} per day`}
         >
             <div>
