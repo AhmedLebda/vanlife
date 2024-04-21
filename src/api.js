@@ -51,6 +51,7 @@ const loginUser = async (creds) => {
             status: res.status,
         };
     }
+    localStorage.setItem("loggedIn", true);
 
     return data;
 };

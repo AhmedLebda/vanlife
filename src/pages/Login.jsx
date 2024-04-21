@@ -1,37 +1,30 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+    useSearchParams,
+    Form,
+    redirect,
+    useActionData,
+    useNavigation,
+} from "react-router-dom";
 import api from "../api";
 
+export const action = async ({ request }) => {
+    const formData = await request.formData();
+    const email = formData.get("email");
+    const password = formData.get("password");
+    try {
+        await api.loginUser({ email, password });
+        const res = redirect("/host");
+        res.body = true;
+        return res;
+    } catch (error) {
+        return error;
+    }
+};
+
 const Login = () => {
-    const [loginFormData, setLoginFormData] = useState({
-        email: "",
-        password: "",
-    });
-    const [status, setStatus] = useState("idle");
-    const [error, setError] = useState(null);
-
     const [searchParams] = useSearchParams();
-
-    const handleInputsChange = (e) => {
-        setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
-    };
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        const login = async () => {
-            try {
-                setStatus("submitting");
-                setError(null);
-                const response = await api.loginUser(loginFormData);
-                console.log(response);
-            } catch (err) {
-                console.log(err);
-                setError(err.message);
-            } finally {
-                setStatus("idle");
-            }
-        };
-        login();
-    };
+    const error = useActionData();
+    const { state } = useNavigation();
 
     return (
         <div className="flex flex-col justify-center items-center pt-20 gap-8">
@@ -44,12 +37,14 @@ const Login = () => {
                 Sign in to your account
             </h1>
 
-            {error && <pre className="text-red-600 font-bold">{error}</pre>}
+            {error && (
+                <pre className="text-red-600 font-bold">{error.message}</pre>
+            )}
 
-            <form
-                action="#"
+            <Form
+                method="POST"
+                replace
                 className="w-3/5 max-w-[400px] flex flex-col gap-4"
-                onSubmit={handleFormSubmit}
             >
                 <div className="flex flex-col gap-1">
                     <label htmlFor="email" className="capitalize">
@@ -59,8 +54,6 @@ const Login = () => {
                         type="email"
                         id="email"
                         name="email"
-                        value={loginFormData.email}
-                        onChange={handleInputsChange}
                         className="border p-1 px-4 rounded-md"
                     />
                 </div>
@@ -72,19 +65,17 @@ const Login = () => {
                         type="password"
                         id="password"
                         name="password"
-                        value={loginFormData.password}
-                        onChange={handleInputsChange}
                         className="border p-1 px-4 rounded-md"
                     />
                 </div>
                 <button
                     type="submit"
                     className="w-full bg-orange-500 text-white rounded-md p-3 mt-4 disabled:cursor-not-allowed disabled:bg-orange-300"
-                    disabled={status === "submitting"}
+                    disabled={state === "submitting"}
                 >
-                    {status === "submitting" ? "Logging in..." : "Log in"}
+                    {state === "idle" ? "Log in" : "Logging in..."}
                 </button>
-            </form>
+            </Form>
             <p>
                 Don&apos;t have an account?
                 <a href="#" className="text-orange-500 font-semibold">

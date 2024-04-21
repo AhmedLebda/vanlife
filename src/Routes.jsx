@@ -2,6 +2,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
     Route,
+    redirect,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -20,7 +21,7 @@ import HostVansPhotos from "./pages/Host/vans-details/HostVansPhotos";
 import NotFound from "./pages/NotFound";
 import Error from "./components/Error";
 import api from "./api";
-import Login from "./pages/Login";
+import Login, { action as loginAction } from "./pages/Login";
 import { requireAuth } from "./utils";
 
 const routes = createBrowserRouter(
@@ -67,7 +68,19 @@ const routes = createBrowserRouter(
                 </Route>
                 <Route path="reviews" element={<Reviews />} />
             </Route>
-            <Route path="login" element={<Login />} />
+            <Route
+                path="login"
+                element={<Login />}
+                loader={async () => {
+                    if (localStorage.getItem("loggedIn")) {
+                        const res = redirect("/host");
+                        res.body = true;
+                        return res;
+                    }
+                    return null;
+                }}
+                action={loginAction}
+            />
             <Route path="*" element={<NotFound />} />
         </Route>
     )
