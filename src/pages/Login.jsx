@@ -7,13 +7,24 @@ import {
 } from "react-router-dom";
 import api from "../api";
 
+export const loader = async () => {
+    if (localStorage.getItem("loggedIn")) {
+        const res = redirect("/host");
+        res.body = true;
+        return res;
+    }
+    return null;
+};
+
 export const action = async ({ request }) => {
     const formData = await request.formData();
     const email = formData.get("email");
     const password = formData.get("password");
+    const params =
+        new URL(request.url).searchParams.get("redirectTo") || "/host";
     try {
         await api.loginUser({ email, password });
-        const res = redirect("/host");
+        const res = redirect(params);
         res.body = true;
         return res;
     } catch (error) {
@@ -25,7 +36,6 @@ const Login = () => {
     const [searchParams] = useSearchParams();
     const error = useActionData();
     const { state } = useNavigation();
-
     return (
         <div className="flex flex-col justify-center items-center pt-20 gap-8">
             {searchParams.get("message") && (

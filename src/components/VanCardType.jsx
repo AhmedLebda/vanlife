@@ -1,13 +1,7 @@
-const VanCardType = ({ type }) => {
-    let typeBg;
+import { getVanTypeBgColor } from "../utils";
 
-    if (type === "simple") {
-        typeBg = "bg-orange-400";
-    } else if (type === "rugged") {
-        typeBg = "bg-emerald-700";
-    } else {
-        typeBg = "bg-zinc-900";
-    }
+const VanCardType = ({ type }) => {
+    let typeBg = getVanTypeBgColor(type);
 
     return (
         <p
