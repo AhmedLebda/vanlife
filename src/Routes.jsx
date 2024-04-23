@@ -42,6 +42,7 @@ const routes = createBrowserRouter(
                 path="vans/:id"
                 element={<VansDetails />}
                 loader={vansDetailsLoader}
+                errorElement={<Error />}
             />
             <Route
                 path="host"
@@ -62,11 +63,13 @@ const routes = createBrowserRouter(
                     path="vans"
                     element={<HostVans />}
                     loader={hostVansLoader}
+                    errorElement={<Error />}
                 />
                 <Route
                     path="vans/:id"
                     element={<HostVansDetailsLayout />}
                     loader={hostVansDetailsLayoutLoader}
+                    errorElement={<Error />}
                 >
                     <Route
                         index
